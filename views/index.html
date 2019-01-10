@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CRUD with Node.JS + MySQL</title>
+    <!-- USING BOOTSTRAP FOR STYLING USER INTERFACE -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <style>
+        .customRow{
+            background-color: #f2f2f2;
+            padding: 20px;
+        }
+</style>
+</head>
+
+<body>
+    <div class="customRow">
+        <div class="container">
+            <div class="card">
+                <div class="card-body">
+                    <h1 class="text-center">Post Management System</h1>
+                    <hr>
+                    <form action="" method="POST">
+                        <div class="form-group">
+                            <label for="post_title">Post Title</label>
+                            <input type="text" name="title" class="form-control" placeholder="Title" id="post_title" required>
+                            <label for="post_content">Post Content</label>
+                            <textarea name="content" class="form-control" placeholder="Write something" id="post_content" required></textarea>
+                            <label for="author_name">Author Name</label>
+                            <input type="text" name="author_name" class="form-control" placeholder="Enter author name" id="author_name" required>
+                            <br>
+                            <input type="submit" value="POST" class="btn btn-primary">
+                        </div>
+                    </form>
+                    <hr>
+                    <h2 class="text-center">All Posts</h2>
+                    <!-- IF HAVE ANY POSTS -->
+                    {% if posts|length > 0 %}
+                        <!-- LOOPING ALL THE POSTS -->
+                        {% for post in posts %}
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ post.title | e }}&nbsp;|&nbsp;<small><span>{{ post.created_at | date("d M, Y") }}</span></small></h5>
+                                    <p class="card-text text-justify">{{ post.content | e }}</p>
+                                    <span class="float-right"><strong>By</strong>,&nbsp;{{ post.author | e }}</span>
+                                    <a href="/edit/{{ post.id | e }}" class="btn btn-light">&#9998; Edit</a>
+                                    <a href="/delete/{{ post.id | e }}" class="btn btn-danger">Delete</a>
+                                </div>
+                            </div>
+                            <hr>
+                        {% endfor %}
+                    {% else %}
+                        <h4>No Post Found !</h4>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+</body>
+
+</html>
